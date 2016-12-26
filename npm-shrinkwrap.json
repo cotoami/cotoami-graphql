@@ -1477,7 +1477,7 @@
     },
     "on-finished": {
       "version": "2.3.0",
-      "from": "on-finished@>=2.3.0 <2.4.0",
+      "from": "https://registry.npmjs.org/on-finished/-/on-finished-2.3.0.tgz",
       "resolved": "https://registry.npmjs.org/on-finished/-/on-finished-2.3.0.tgz"
     },
     "once": {
