@@ -1,5 +1,5 @@
 import express from 'express';
-import http = from 'http';
+import http from 'http';
 import bunyan from 'bunyan';
 
 const logger = bunyan.createLogger({
