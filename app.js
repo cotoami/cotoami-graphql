@@ -1,10 +1,11 @@
-const express = require('express');
-const app = express();
-const http = require('http');
-const bunyan = require('bunyan');
+import express from 'express';
+import http = from 'http';
+import bunyan from 'bunyan';
+
 const logger = bunyan.createLogger({
     name: 'cotoami',
 });
+const app = express();
 
 app.get('/', function (req, res) {
     res.send('Hello World!');
