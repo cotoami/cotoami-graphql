@@ -2,6 +2,8 @@ import express from 'express';
 import http from 'http';
 import onFinished from 'on-finished';
 import bunyan from 'bunyan';
+import graphqlHTTP from 'express-graphql';
+import schema from './schema';
 
 const logger = bunyan.createLogger({
     name: 'cotoami',
@@ -10,9 +12,10 @@ const logger = bunyan.createLogger({
 const app = express();
 
 app.use(accessLog);
-app.get('/', function (req, res) {
-    res.send('Hello World!');
-});
+app.use('/graphql', graphqlHTTP({
+    schema,
+    graphiql: true,
+}));
 
 const server = http.createServer(app);
 server.listen(process.env.COTOAMI_GRAPHQL_PORT || 3000);
