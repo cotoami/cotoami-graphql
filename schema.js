@@ -78,6 +78,20 @@ const schema = new GraphQLSchema({
                     };
                 },
             },
+            deleteCoto: {
+                type: CotoType,
+                args: {
+                    id: {
+                        name: 'id',
+                        type: GraphQLInt
+                    },
+                },
+                resolve(obj, {id}) {
+                    return {
+                        content: 'example coto',
+                    };
+                },
+            },
         }
     }),
 });
