@@ -60,6 +60,26 @@ const schema = new GraphQLSchema({
             },
         },
     }),
+
+    mutation: new GraphQLObjectType({
+	name: 'Mutation',
+	fields: {
+            createCoto: {
+                type: CotoType,
+                args: {
+                    content: {
+                        name: 'content',
+                        type: GraphQLString
+                    },
+                },
+                resolve(obj, {content}) {
+                    return {
+                        content,
+                    };
+                },
+            },
+        }
+    }),
 });
 
 export default schema;
