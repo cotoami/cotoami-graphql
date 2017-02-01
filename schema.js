@@ -113,6 +113,28 @@ const schema = new GraphQLSchema({
                     };
                 },
             },
+            createCotonoma: {
+                type: CotoType,
+                args: {
+                    cotonoma_id: {
+                        name: 'cotonoma_id',
+                        type: GraphQLInt,
+                    },
+                    name: {
+                        name: 'name',
+                        type: GraphQLString,
+                    },
+                    postId: {
+                        name: 'postId',
+                        type: GraphQLInt,
+                    },
+                },
+                resolve(obj, {cotonoma_id, name, postId}) {
+                    return {
+                        content: name,
+                    };
+                },
+            }
         }
     }),
 });
