@@ -1,16 +1,37 @@
 import {
-  graphql,
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLList,
-  GraphQLString,
-  GraphQLInt,
+    graphql,
+    GraphQLSchema,
+    GraphQLObjectType,
+    GraphQLList,
+    GraphQLString,
+    GraphQLInt,
 } from 'graphql';
 
 const CotoType = new GraphQLObjectType({
     name: 'Coto',
     fields: () => ({
         content: {
+            type: GraphQLString,
+        },
+    }),
+});
+
+const CotonomaType = new GraphQLObjectType({
+    name: 'Cotonoma',
+    fields: () => ({
+        id: {
+            type: GraphQLInt,
+        },
+        name: {
+            type: GraphQLString,
+        },
+        key: {
+            type: GraphQLString,
+        },
+        inserted_at: {
+            type: GraphQLString,
+        },
+        updated_at: {
             type: GraphQLString,
         },
     }),
