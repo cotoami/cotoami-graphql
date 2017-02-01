@@ -34,6 +34,9 @@ const CotonomaType = new GraphQLObjectType({
         updated_at: {
             type: GraphQLString,
         },
+        cotos: {
+            type: new GraphQLList(CotoType),
+        }
     }),
 });
 
@@ -66,6 +69,28 @@ const schema = new GraphQLSchema({
                         { content: 'sample coto 1' },
                         { content: 'sample coto 2' },
                     ];
+                }
+            },
+            cotonoma: {
+                type: CotonomaType,
+                args: {
+                    key: {
+                        name: 'key',
+                        type: GraphQLString
+                    },
+                },
+                resolve(obj, {key}) {
+                    return {
+                        id: 1,
+                        name: 'exmaple cotonoma',
+                        key,
+                        inserted_at: '2017-02-01 12:58:59',
+                        updated_at: '2017-02-01 12:58:59',
+                        cotos: [
+                            { content: 'sample coto 1' },
+                            { content: 'sample coto 2' },
+                        ],
+                    };
                 }
             },
             session: {
