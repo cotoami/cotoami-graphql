@@ -1,10 +1,10 @@
 import {
-  graphql,
-  GraphQLSchema,
-  GraphQLObjectType,
-  GraphQLList,
-  GraphQLString,
-  GraphQLInt,
+    graphql,
+    GraphQLSchema,
+    GraphQLObjectType,
+    GraphQLList,
+    GraphQLString,
+    GraphQLInt,
 } from 'graphql';
 
 const CotoType = new GraphQLObjectType({
@@ -13,6 +13,30 @@ const CotoType = new GraphQLObjectType({
         content: {
             type: GraphQLString,
         },
+    }),
+});
+
+const CotonomaType = new GraphQLObjectType({
+    name: 'Cotonoma',
+    fields: () => ({
+        id: {
+            type: GraphQLInt,
+        },
+        name: {
+            type: GraphQLString,
+        },
+        key: {
+            type: GraphQLString,
+        },
+        inserted_at: {
+            type: GraphQLString,
+        },
+        updated_at: {
+            type: GraphQLString,
+        },
+        cotos: {
+            type: new GraphQLList(CotoType),
+        }
     }),
 });
 
@@ -45,6 +69,28 @@ const schema = new GraphQLSchema({
                         { content: 'sample coto 1' },
                         { content: 'sample coto 2' },
                     ];
+                }
+            },
+            cotonoma: {
+                type: CotonomaType,
+                args: {
+                    key: {
+                        name: 'key',
+                        type: GraphQLString
+                    },
+                },
+                resolve(obj, {key}) {
+                    return {
+                        id: 1,
+                        name: 'exmaple cotonoma',
+                        key,
+                        inserted_at: '2017-02-01 12:58:59',
+                        updated_at: '2017-02-01 12:58:59',
+                        cotos: [
+                            { content: 'sample coto 1' },
+                            { content: 'sample coto 2' },
+                        ],
+                    };
                 }
             },
             session: {
@@ -92,6 +138,28 @@ const schema = new GraphQLSchema({
                     };
                 },
             },
+            createCotonoma: {
+                type: CotoType,
+                args: {
+                    cotonoma_id: {
+                        name: 'cotonoma_id',
+                        type: GraphQLInt,
+                    },
+                    name: {
+                        name: 'name',
+                        type: GraphQLString,
+                    },
+                    postId: {
+                        name: 'postId',
+                        type: GraphQLInt,
+                    },
+                },
+                resolve(obj, {cotonoma_id, name, postId}) {
+                    return {
+                        content: name,
+                    };
+                },
+            }
         }
     }),
 });
