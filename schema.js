@@ -5,6 +5,7 @@ import {
     GraphQLList,
     GraphQLString,
     GraphQLInt,
+    GraphQLBoolean,
 } from 'graphql';
 
 const CotoType = new GraphQLObjectType({
@@ -158,6 +159,22 @@ const schema = new GraphQLSchema({
                     return {
                         content: name,
                     };
+                },
+            },
+            signin: {
+                type: GraphQLString,
+                args: {
+                    email: {
+                        name: 'email',
+                        type: GraphQLString,
+                    },
+                    save_anonymous: {
+                        name: 'save_anonymous',
+                        type: GraphQLBoolean,
+                    },
+                },
+                resolve(obj, {email, save_anonymous}) {
+                    return 'ok';
                 },
             }
         }
