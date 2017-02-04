@@ -5,13 +5,32 @@ import {
     GraphQLList,
     GraphQLString,
     GraphQLInt,
+    GraphQLBoolean,
 } from 'graphql';
 
 const CotoType = new GraphQLObjectType({
     name: 'Coto',
     fields: () => ({
+        id: {
+            type: GraphQLInt,
+        },
+        cotonoma_key: {
+            type: GraphQLString,
+        },
+        as_cotonoma: {
+            type: GraphQLBoolean,
+        },
         content: {
             type: GraphQLString,
+        },
+        inserted_at: {
+            type: GraphQLString,
+        },
+        updated_at: {
+            type: GraphQLString,
+        },
+        posted_in: {
+            type: CotonomaType,
         },
     }),
 });
@@ -66,8 +85,30 @@ const schema = new GraphQLSchema({
                 type: new GraphQLList(CotoType),
                 resolve() {
                     return [
-                        { content: 'sample coto 1' },
-                        { content: 'sample coto 2' },
+                        {
+                            id: 1,
+                            as_cotonoma: false,
+                            cotonoma_key: 'abcdefg',
+                            content: 'sample coto 1',
+                            inserted_at: '2017-02-01 12:58:59',
+                            updated_at: '2017-02-01 12:58:59',
+                            posted_in: {
+                                id: 2,
+                                name: 'exmaple cotonoma',
+                                key: 'abcdefg',
+                                inserted_at: '2017-02-01 12:58:59',
+                                updated_at: '2017-02-01 12:58:59',
+                            },
+                        },
+                        {
+                            id: 2,
+                            as_cotonoma: true,
+                            cotonoma_key: 'abcdefg',
+                            content: 'example cotonoma',
+                            inserted_at: '2017-02-01 12:58:59',
+                            updated_at: '2017-02-01 12:58:59',
+                            posted_in: null,
+                        },
                     ];
                 }
             },
@@ -81,14 +122,27 @@ const schema = new GraphQLSchema({
                 },
                 resolve(obj, {key}) {
                     return {
-                        id: 1,
+                        id: 2,
                         name: 'exmaple cotonoma',
                         key,
                         inserted_at: '2017-02-01 12:58:59',
                         updated_at: '2017-02-01 12:58:59',
                         cotos: [
-                            { content: 'sample coto 1' },
-                            { content: 'sample coto 2' },
+                            {
+                                id: 1,
+                                as_cotonoma: false,
+                                cotonoma_key: 'abcdefg',
+                                content: 'sample coto 1',
+                                inserted_at: '2017-02-01 12:58:59',
+                                updated_at: '2017-02-01 12:58:59',
+                                posted_in: {
+                                    id: 2,
+                                    name: 'exmaple cotonoma',
+                                    key,
+                                    inserted_at: '2017-02-01 12:58:59',
+                                    updated_at: '2017-02-01 12:58:59',
+                                },
+                            },
                         ],
                     };
                 }
@@ -158,6 +212,22 @@ const schema = new GraphQLSchema({
                     return {
                         content: name,
                     };
+                },
+            },
+            signin: {
+                type: GraphQLString,
+                args: {
+                    email: {
+                        name: 'email',
+                        type: GraphQLString,
+                    },
+                    save_anonymous: {
+                        name: 'save_anonymous',
+                        type: GraphQLBoolean,
+                    },
+                },
+                resolve(obj, {email, save_anonymous}) {
+                    return 'ok';
                 },
             }
         }
