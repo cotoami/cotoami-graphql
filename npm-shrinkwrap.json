@@ -503,6 +503,12 @@
       "resolved": "https://registry.npmjs.org/expand-range/-/expand-range-1.8.2.tgz",
       "optional": true
     },
+    "expect.js": {
+      "version": "0.3.1",
+      "from": "expect.js@>=0.3.1 <0.4.0",
+      "resolved": "https://registry.npmjs.org/expect.js/-/expect.js-0.3.1.tgz",
+      "dev": true
+    },
     "express": {
       "version": "4.14.0",
       "from": "express@>=4.14.0 <5.0.0",

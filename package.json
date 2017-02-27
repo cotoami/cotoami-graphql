@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "babel-register": "https://registry.npmjs.org/babel-register/-/babel-register-6.18.0.tgz",
+    "expect.js": "^0.3.1",
     "mocha": "^3.2.0",
     "supertest": "^3.0.0"
   }
