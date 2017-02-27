@@ -1,7 +1,7 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import schema from './schema';
-import mock_api from './lib/mock_api';
+import stub_api from './lib/stub_api';
 import accessLog from './lib/access_log';
 
 const app = express();
@@ -16,7 +16,7 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
-    app.use('/mock/api', mock_api);
+    app.use('/stub/api', stub_api);
 }
 
 export default app;
