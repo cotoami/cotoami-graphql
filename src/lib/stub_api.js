@@ -99,4 +99,18 @@ router.get('/cotonomas', (req, res) => {
     ]);
 });
 
+router.post('/cotonomas', (req, res) => {
+    const {postId, name} = req.body.cotonoma;
+    res.json({
+        postId,
+        updated_at: '2017-02-26 06:51:09',
+        posted_in: null,
+        inserted_at: '2017-02-26 06:51:09',
+        id: 567,
+        cotonoma_key: 'tp2re1drdj106s8d',
+        content: name,
+        as_cotonoma: true
+    });
+});
+
 export default router;

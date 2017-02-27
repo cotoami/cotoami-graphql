@@ -34,7 +34,7 @@ describe('GET /stub/api/cotos', () => {
     });
 });
 
-describe('POST /api/cotos', () => {
+describe('POST /stub/api/cotos', () => {
     it('respond with json', (done) => {
         request(app)
         .post('/stub/api/cotos')
@@ -56,8 +56,8 @@ describe('POST /api/cotos', () => {
     });
 });
 
-describe('DELETE /api/cotos/:key', () => {
-    it('respond with json', (done) => {
+describe('DELETE /stub/api/cotos/:key', () => {
+    it('respond with 200', (done) => {
         request(app)
         .delete('/stub/api/cotos/1')
         .expect(200, done);
@@ -70,5 +70,30 @@ describe('GET /stub/api/cotonomas', () => {
         .get('/stub/api/cotonomas')
         .expect('Content-Type', /json/)
         .expect(200, done)
+    });
+});
+
+describe('POST /stub/api/cotonomas', () => {
+    it('respond with json', (done) => {
+        request(app)
+        .post('/stub/api/cotonomas')
+        .send({
+            cotonoma: {
+                cotonoma_id: null,
+                postId: 1,
+                name: 'テスト',
+                members: [
+                    { 'email': 'work@tai2.net' },
+                ],
+            },
+        })
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end((err, res) => {
+            if (err) done(err);
+            expect(res.body).to.have.property('postId', 1);
+            expect(res.body).to.have.property('content', 'テスト');
+            done();
+        });
     });
 });
