@@ -63,3 +63,12 @@ describe('DELETE /api/cotos/:key', () => {
         .expect(200, done);
     });
 });
+
+describe('GET /stub/api/cotonomas', () => {
+    it('respond with json', (done) => {
+        request(app)
+        .get('/stub/api/cotonomas')
+        .expect('Content-Type', /json/)
+        .expect(200, done)
+    });
+});

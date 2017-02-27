@@ -78,4 +78,25 @@ router.delete('/cotos/:id', (req, res) => {
     res.end();
 });
 
+router.get('/cotonomas', (req, res) => {
+    res.json([
+        {
+            updated_at:"2017-01-31 11:09:48",
+            name:"間",
+            key:"mt9u3qlda0r9joif",
+            inserted_at:"2017-01-31 11:09:48",
+            id:28,
+            coto_id:253
+        },
+        {
+            updated_at: '2017-01-31 12:05:52',
+            name: '間2',
+            key: '9tprql4a4ic8cscc',
+            inserted_at: '2017-01-31 12:05:52',
+            id: 29,
+            coto_id: 255,
+        },
+    ]);
+});
+
 export default router;
