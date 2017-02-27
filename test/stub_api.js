@@ -23,3 +23,12 @@ describe('GET /stub/api/amishis/email/:email', () => {
         });
     });
 });
+
+describe('GET /stub/api/cotos', () => {
+    it('respond with json', (done) => {
+        request(app)
+        .get('/stub/api/cotos')
+        .expect('Content-Type', /json/)
+        .expect(200, done)
+    });
+});
