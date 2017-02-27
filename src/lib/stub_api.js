@@ -74,4 +74,8 @@ router.post('/cotos', (req, res) => {
     });
 });
 
+router.delete('/cotos/:id', (req, res) => {
+    res.end();
+});
+
 export default router;

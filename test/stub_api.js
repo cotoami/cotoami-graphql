@@ -55,3 +55,11 @@ describe('POST /api/cotos', () => {
         });
     });
 });
+
+describe('DELETE /api/cotos/:key', () => {
+    it('respond with json', (done) => {
+        request(app)
+        .delete('/stub/api/cotos/1')
+        .expect(200, done);
+    });
+});
