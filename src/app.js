@@ -6,13 +6,16 @@ import accessLog from './lib/access_log';
 
 const app = express();
 
-app.use(accessLog);
+if (process.env.NODE_ENV !== 'test') {
+    app.use(accessLog);
+}
+
 app.use('/graphql', graphqlHTTP({
     schema,
     graphiql: true,
 }));
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
     app.use('/mock/api', mock_api);
 }
 

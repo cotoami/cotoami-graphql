@@ -1,9 +1,11 @@
-import assert from 'assert';
+import request from 'supertest';
+import app from '../src/app';
 
-describe('Array', function() {
-    describe('#indexOf()', function() {
-        it('should return -1 when the value is not present', function() {
-            assert.equal(-1, [1,2,3].indexOf(4));
-        });
+describe('GET /mock/api/', () => {
+    it('respond with json', (done) => {
+        request(app)
+        .get('/mock/api')
+        .expect('Content-Type', /json/)
+        .expect(200, done);
     });
 });
