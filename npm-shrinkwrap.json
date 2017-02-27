@@ -317,6 +317,38 @@
       "resolved": "https://registry.npmjs.org/binary-extensions/-/binary-extensions-1.8.0.tgz",
       "optional": true
     },
+    "body-parser": {
+      "version": "1.16.1",
+      "from": "body-parser@latest",
+      "resolved": "https://registry.npmjs.org/body-parser/-/body-parser-1.16.1.tgz",
+      "dependencies": {
+        "debug": {
+          "version": "2.6.1",
+          "from": "debug@2.6.1",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.1.tgz"
+        },
+        "iconv-lite": {
+          "version": "0.4.15",
+          "from": "iconv-lite@0.4.15",
+          "resolved": "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.15.tgz"
+        },
+        "ms": {
+          "version": "0.7.2",
+          "from": "ms@0.7.2",
+          "resolved": "https://registry.npmjs.org/ms/-/ms-0.7.2.tgz"
+        },
+        "qs": {
+          "version": "6.2.1",
+          "from": "qs@6.2.1",
+          "resolved": "https://registry.npmjs.org/qs/-/qs-6.2.1.tgz"
+        },
+        "raw-body": {
+          "version": "2.2.0",
+          "from": "raw-body@>=2.2.0 <2.3.0",
+          "resolved": "https://registry.npmjs.org/raw-body/-/raw-body-2.2.0.tgz"
+        }
+      }
+    },
     "brace-expansion": {
       "version": "1.1.6",
       "from": "brace-expansion@>=1.0.0 <2.0.0",

@@ -60,4 +60,18 @@ router.get('/cotos', (req, res) => {
     ]);
 });
 
+router.post('/cotos', (req, res) => {
+    const {postId, content} = req.body.coto;
+    res.json({
+        postId,
+        updated_at: '2017-02-26 06:35:37',
+        posted_in: null,
+        inserted_at: '2017-02-26 06:35:37',
+        id: 560,
+        cotonoma_key: '',
+        content,
+        as_cotonoma: false,
+    });
+});
+
 export default router;
