@@ -113,4 +113,52 @@ router.post('/cotonomas', (req, res) => {
     });
 });
 
+router.get('/cotonomas/:id/cotos', (req, res) => {
+    const cotonomaId = parseInt(req.params.id, 10);
+    res.json({
+        cotos:[
+            {
+                updated_at: '2017-02-01 12:58:59',
+                posted_in: {
+                    updated_at: '2017-02-01 12:19:01',
+                    name: '間3',
+                    key: 'esll1ureuculekv3',
+                    inserted_at: '2017-02-01 12:19:01',
+                    id: cotonomaId,
+                    coto_id: -1
+                },
+                inserted_at: '2017-02-01 12:58:59',
+                id: 279,
+                cotonoma_key: 'qcqshmvikch68tkh',
+                content: 'テスト',
+                as_cotonoma: true
+            },
+            {
+                updated_at: '2017-02-01 12:19:12',
+                posted_in: {
+                    updated_at: '2017-02-01 12:19:01',
+                    name: '間3',
+                    key: 'esll1ureuculekv3',
+                    inserted_at: '2017-02-01 12:19:01',
+                    id: cotonomaId,
+                    coto_id: -1
+                },
+                inserted_at: '2017-02-01 12:19:12',
+                id: 278,
+                cotonoma_key: '',
+                content: '投稿',
+                as_cotonoma: false,
+            }
+        ],
+        cotonoma: {
+            updated_at: '2017-02-01 12:19:01',
+            name: '間3',
+            key: 'esll1ureuculekv3',
+            inserted_at: '2017-02-01 12:19:01',
+            id: cotonomaId,
+            coto_id: 277,
+        },
+    });
+});
+
 export default router;

@@ -56,7 +56,7 @@ describe('POST /stub/api/cotos', () => {
     });
 });
 
-describe('DELETE /stub/api/cotos/:key', () => {
+describe('DELETE /stub/api/cotos/:id', () => {
     it('respond with 200', (done) => {
         request(app)
         .delete('/stub/api/cotos/1')
@@ -93,6 +93,21 @@ describe('POST /stub/api/cotonomas', () => {
             if (err) done(err);
             expect(res.body).to.have.property('postId', 1);
             expect(res.body).to.have.property('content', 'テスト');
+            done();
+        });
+    });
+});
+
+describe('GET /stub/api/cotonomas/:id/cotos', () => {
+    it('respond with json', (done) => {
+        request(app)
+        .get('/stub/api/cotonomas/1/cotos')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end((err, res) => {
+            if (err) done(err);
+            expect(res.body).to.have.property('cotonoma');
+            expect(res.body.cotonoma).to.have.property('id', 1);
             done();
         });
     });
