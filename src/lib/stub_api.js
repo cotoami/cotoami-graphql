@@ -161,4 +161,8 @@ router.get('/cotonomas/:id/cotos', (req, res) => {
     });
 });
 
+router.get('/signin/request/:email/:save_anonymous', (req, res) => {
+    res.send('ok');
+});
+
 export default router;

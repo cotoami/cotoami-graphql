@@ -112,3 +112,11 @@ describe('GET /stub/api/cotonomas/:id/cotos', () => {
         });
     });
 });
+
+describe('GET /stub/api/signin/request/:email/:save_anonymous', () => {
+    it('respond with json', (done) => {
+        request(app)
+        .get('/stub/api/signin/request/info@tai2.net/yes')
+        .expect(200, 'ok', done);
+    });
+});
