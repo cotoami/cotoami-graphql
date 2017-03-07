@@ -1,5 +1,6 @@
 type Coto {
     id: Int!
+    postId: Int
     cotonoma_key: String!
     as_cotonoma: Boolean!
     content: String!
@@ -10,6 +11,8 @@ type Coto {
 
 type Cotonoma {
     id: Int!
+    coto_id: Int!
+    postId: Int
     name: String!
     key: String!
     inserted_at: String!
@@ -17,23 +20,26 @@ type Cotonoma {
     cotos: [Coto!]!
 }
 
-type Session {
+type Amishi {
     id: Int!
     email: String!
     display_name: String!
     avatar_url: String!
+    inserted_at: String!
+    updated_at: String!
 }
 
 type Query {
     cotos: [Coto!]!
     cotonoma(key: String!): Cotonoma
-    session: Session
+    amishi(email: String!): Amishi
+    session: Amishi
 }
 
 type Mutation {
-    createCoto(content: String!): Coto!
+    createCoto(cotonoma_id: Int, postId: Int!, content: String!): Coto!
     deleteCoto(id: Int!): Coto
-    createCotonoma(cotonoma_id: Int, name: String!, postId: Int!): Cotonoma!
+    createCotonoma(cotonoma_id: Int, postId: Int!, name: String!): Cotonoma!
     signin(email: String!, save_anonymous: Boolean!): String!
 }
 

@@ -11,6 +11,7 @@ class Root {
                 updated_at: '2017-02-01 12:58:59',
                 posted_in: {
                     id: 2,
+                    coto_id: -1,
                     name: 'exmaple cotonoma',
                     key: 'abcdefg',
                     inserted_at: '2017-02-01 12:58:59',
@@ -32,6 +33,7 @@ class Root {
     cotonoma({key}) {
         return {
             id: 2,
+            coto_id: 255,
             name: 'exmaple cotonoma',
             key,
             inserted_at: '2017-02-01 12:58:59',
@@ -46,6 +48,7 @@ class Root {
                     updated_at: '2017-02-01 12:58:59',
                     posted_in: {
                         id: 2,
+                        coto_id: -1,
                         name: 'exmaple cotonoma',
                         key,
                         inserted_at: '2017-02-01 12:58:59',
@@ -56,18 +59,32 @@ class Root {
         };
     }
 
+    amishi({email}) {
+        return {
+            id: 1,
+            email,
+            display_name: 'bar',
+            avatar_url: 'http://example.com/foo.png',
+            inserted_at: '2017-02-01 12:58:59',
+            updated_at: '2017-02-01 12:58:59',
+        }
+    }
+
     session() {
         return {
             id: 1,
             email: 'foo@example.com',
             display_name: 'bar',
             avatar_url: 'http://example.com/foo.png',
+            inserted_at: '2017-02-01 12:58:59',
+            updated_at: '2017-02-01 12:58:59',
         }
     }
 
-    createCoto({content}) {
+    createCoto({cotonoma_id, postId, content}) {
         return {
             id: 1,
+            postId,
             as_cotonoma: true,
             cotonoma_key: 'abcdefg',
             content,
@@ -89,9 +106,11 @@ class Root {
         };
     }
 
-    createCotonoma({cotoami_id, name, postId}) {
+    createCotonoma({cotoami_id, postId, name}) {
         return {
             id: 2,
+            coto_id: -1,
+            postId,
             name: 'exmaple cotonoma',
             key,
             inserted_at: '2017-02-01 12:58:59',
