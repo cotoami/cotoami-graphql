@@ -1,0 +1,39 @@
+type Coto {
+    id: Int!
+    cotonoma_key: String!
+    as_cotonoma: Boolean!
+    content: String!
+    inserted_at: String!
+    updated_at: String!
+    posted_in: Cotonoma
+}
+
+type Cotonoma {
+    id: Int!
+    name: String!
+    key: String!
+    inserted_at: String!
+    updated_at: String!
+    cotos: [Coto!]!
+}
+
+type Session {
+    id: Int!
+    email: String!
+    display_name: String!
+    avatar_url: String!
+}
+
+type Query {
+    cotos: [Coto!]!
+    cotonoma(key: String!): Cotonoma
+    session: Session
+}
+
+type Mutation {
+    createCoto(content: String!): Coto!
+    deleteCoto(id: Int!): Coto
+    createCotonoma(cotonoma_id: Int, name: String!, postId: Int!): Cotonoma!
+    signin(email: String!, save_anonymous: Boolean!): String!
+}
+
