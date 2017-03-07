@@ -1,7 +1,6 @@
 import request from 'supertest';
 import expect from 'expect.js';
 import app from '../src/app';
-import assert from 'assert';
 
 describe('GET /stub/api/session/', () => {
     it('respond with json', (done) => {
