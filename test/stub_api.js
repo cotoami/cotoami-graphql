@@ -1,7 +1,6 @@
 import request from 'supertest';
 import expect from 'expect.js';
 import app from '../src/app';
-import assert from 'assert';
 
 describe('GET /stub/api/session/', () => {
     it('respond with json', (done) => {
@@ -13,14 +12,13 @@ describe('GET /stub/api/session/', () => {
 });
 
 describe('GET /stub/api/amishis/email/:email', () => {
-    it('respond with json', (done) => {
-        request(app)
+    it('respond with json', () => {
+        return request(app)
         .get('/stub/api/amishis/email/info@tai2.net')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end((err, res) => {
+        .then(res => {
             expect(res.body).to.have.property('email', 'info@tai2.net');
-            done();
         });
     });
 });
@@ -35,8 +33,8 @@ describe('GET /stub/api/cotos', () => {
 });
 
 describe('POST /stub/api/cotos', () => {
-    it('respond with json', (done) => {
-        request(app)
+    it('respond with json', () => {
+        return request(app)
         .post('/stub/api/cotos')
         .send({
             coto: {
@@ -47,11 +45,9 @@ describe('POST /stub/api/cotos', () => {
         })
         .expect('Content-Type', /json/)
         .expect(200)
-        .end((err, res) => {
-            if (err) done(err);
+        .then(res => {
             expect(res.body).to.have.property('postId', 1);
             expect(res.body).to.have.property('content', 'テスト');
-            done();
         });
     });
 });
@@ -74,8 +70,8 @@ describe('GET /stub/api/cotonomas', () => {
 });
 
 describe('POST /stub/api/cotonomas', () => {
-    it('respond with json', (done) => {
-        request(app)
+    it('respond with json', () => {
+        return request(app)
         .post('/stub/api/cotonomas')
         .send({
             cotonoma: {
@@ -89,26 +85,22 @@ describe('POST /stub/api/cotonomas', () => {
         })
         .expect('Content-Type', /json/)
         .expect(200)
-        .end((err, res) => {
-            if (err) done(err);
+        .then(res => {
             expect(res.body).to.have.property('postId', 1);
             expect(res.body).to.have.property('content', 'テスト');
-            done();
         });
     });
 });
 
 describe('GET /stub/api/cotonomas/:id/cotos', () => {
-    it('respond with json', (done) => {
+    it('respond with json', () => {
         request(app)
         .get('/stub/api/cotonomas/1/cotos')
         .expect('Content-Type', /json/)
         .expect(200)
-        .end((err, res) => {
-            if (err) done(err);
+        .then(res => {
             expect(res.body).to.have.property('cotonoma');
             expect(res.body.cotonoma).to.have.property('id', 1);
-            done();
         });
     });
 });
