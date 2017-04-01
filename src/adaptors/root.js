@@ -13,38 +13,23 @@ class Root {
             if (response.ok) {
                 return response.json();
             } else {
-                return new Error(response.statusText);
+                throw new Error(response.statusText);
             }
         });
     }
 
     cotonoma({key}) {
-        return {
-            id: 2,
-            coto_id: 255,
-            name: 'exmaple cotonoma',
-            key,
-            inserted_at: '2017-02-01 12:58:59',
-            updated_at: '2017-02-01 12:58:59',
-            cotos: [
-                {
-                    id: 1,
-                    as_cotonoma: false,
-                    cotonoma_key: 'abcdefg',
-                    content: 'sample coto 1',
-                    inserted_at: '2017-02-01 12:58:59',
-                    updated_at: '2017-02-01 12:58:59',
-                    posted_in: {
-                        id: 2,
-                        coto_id: -1,
-                        name: 'exmaple cotonoma',
-                        key,
-                        inserted_at: '2017-02-01 12:58:59',
-                        updated_at: '2017-02-01 12:58:59',
-                    },
-                },
-            ],
-        };
+        return fetch(restUrl(`cotonomas/${key}/cotos`)).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(response.statusText);
+            }
+        })
+        .then(data => {
+            const { cotonoma, cotos } = data;
+            return { ...cotonoma, cotos };
+        });
     }
 
     amishi({email}) {

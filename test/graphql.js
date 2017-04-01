@@ -19,3 +19,24 @@ describe('Get cotos', () => {
         });
     });
 });
+
+describe('Get a cotonoma and cotos of it', () => {
+    it('respond with json', () => {
+        const query = `query {
+            cotonoma(key: "abcde") {
+              key
+              cotos {
+                id
+              }
+            }
+        }`;
+        return graphql(schema, query, new Root()).then((result) => {
+            expect(result).not.to.have.key('errors');
+            expect(result.data).to.have.property('cotonoma');
+            expect(result.data.cotonoma).not.to.be(null);
+            expect(result.data.cotonoma).to.have.property('key', 'abcde');
+            expect(result.data.cotonoma).to.have.property('cotos');
+            expect(result.data.cotonoma.cotos).to.be.an('array');
+        });
+    });
+});
