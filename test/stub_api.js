@@ -92,15 +92,15 @@ describe('POST /stub/api/cotonomas', () => {
     });
 });
 
-describe('GET /stub/api/cotonomas/:id/cotos', () => {
+describe('GET /stub/api/cotonomas/:key/cotos', () => {
     it('respond with json', () => {
         request(app)
-        .get('/stub/api/cotonomas/1/cotos')
+        .get('/stub/api/cotonomas/tp2re1drdj106s8d/cotos')
         .expect('Content-Type', /json/)
         .expect(200)
         .then(res => {
             expect(res.body).to.have.property('cotonoma');
-            expect(res.body.cotonoma).to.have.property('id', 1);
+            expect(res.body.cotonoma).to.have.property('key', 'tp2re1drdj106s8d');
         });
     });
 });

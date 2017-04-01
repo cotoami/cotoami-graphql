@@ -113,8 +113,8 @@ router.post('/cotonomas', (req, res) => {
     });
 });
 
-router.get('/cotonomas/:id/cotos', (req, res) => {
-    const cotonomaId = parseInt(req.params.id, 10);
+router.get('/cotonomas/:key/cotos', (req, res) => {
+    const cotonomaKey = req.params.key;
     res.json({
         cotos:[
             {
@@ -124,7 +124,7 @@ router.get('/cotonomas/:id/cotos', (req, res) => {
                     name: '間3',
                     key: 'esll1ureuculekv3',
                     inserted_at: '2017-02-01 12:19:01',
-                    id: cotonomaId,
+                    id: 38,
                     coto_id: -1
                 },
                 inserted_at: '2017-02-01 12:58:59',
@@ -138,9 +138,9 @@ router.get('/cotonomas/:id/cotos', (req, res) => {
                 posted_in: {
                     updated_at: '2017-02-01 12:19:01',
                     name: '間3',
-                    key: 'esll1ureuculekv3',
+                    key: cotonomaKey,
                     inserted_at: '2017-02-01 12:19:01',
-                    id: cotonomaId,
+                    id: 38,
                     coto_id: -1
                 },
                 inserted_at: '2017-02-01 12:19:12',
@@ -153,9 +153,9 @@ router.get('/cotonomas/:id/cotos', (req, res) => {
         cotonoma: {
             updated_at: '2017-02-01 12:19:01',
             name: '間3',
-            key: 'esll1ureuculekv3',
+            key: cotonomaKey,
             inserted_at: '2017-02-01 12:19:01',
-            id: cotonomaId,
+            id: 38,
             coto_id: 277,
         },
     });
