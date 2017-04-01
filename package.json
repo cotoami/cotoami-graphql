@@ -18,6 +18,7 @@
     "express": "^4.14.0",
     "express-graphql": "^0.6.1",
     "graphql": "^0.8.2",
+    "node-fetch": "^1.6.3",
     "on-finished": "https://registry.npmjs.org/on-finished/-/on-finished-2.3.0.tgz"
   },
   "devDependencies": {

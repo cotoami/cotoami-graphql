@@ -1,33 +1,21 @@
+import url from 'url';
+import fetch from 'node-fetch';
+
+const REST_URL_BASE = 'http://localhost:3000/stub/api/';
+
+function restUrl(path) {
+    return url.resolve(REST_URL_BASE, path);
+}
 
 class Root {
     cotos() {
-        return [
-            {
-                id: 1,
-                as_cotonoma: false,
-                cotonoma_key: 'abcdefg',
-                content: 'sample coto 1',
-                inserted_at: '2017-02-01 12:58:59',
-                updated_at: '2017-02-01 12:58:59',
-                posted_in: {
-                    id: 2,
-                    coto_id: -1,
-                    name: 'exmaple cotonoma',
-                    key: 'abcdefg',
-                    inserted_at: '2017-02-01 12:58:59',
-                    updated_at: '2017-02-01 12:58:59',
-                },
-            },
-            {
-                id: 2,
-                as_cotonoma: true,
-                cotonoma_key: 'abcdefg',
-                content: 'example cotonoma',
-                inserted_at: '2017-02-01 12:58:59',
-                updated_at: '2017-02-01 12:58:59',
-                posted_in: null,
-            },
-        ];
+        return fetch(restUrl('cotos')).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return new Error(response.statusText);
+            }
+        });
     }
 
     cotonoma({key}) {

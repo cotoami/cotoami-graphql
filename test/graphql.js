@@ -11,6 +11,7 @@ describe('Get cotos', () => {
             }
         }`;
         return graphql(schema, query, new Root()).then((result) => {
+            expect(result).not.to.have.key('errors');
             expect(result.data).to.have.property('cotos');
             expect(result.data.cotos).to.be.an('array');
             expect(result.data.cotos).to.not.be.empty();
