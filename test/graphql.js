@@ -105,3 +105,19 @@ describe('Delete a coto', () => {
         });
     });
 });
+
+describe('Create a cotonoma', () => {
+    it('respond with json', () => {
+        const query = `mutation {
+            createCotonoma(cotonoma_id: 1, postId: 1, name: "test", members: []) {
+                id
+            }
+        }`;
+        return graphql(schema, query, new Root()).then((result) => {
+            expect(result).not.to.have.key('errors');
+            expect(result.data).to.have.property('createCotonoma');
+            expect(result.data.createCotonoma).not.to.be(null);
+            expect(result.data.createCotonoma).to.have.property('id');
+        });
+    });
+});

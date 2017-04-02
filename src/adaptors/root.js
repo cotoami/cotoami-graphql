@@ -89,17 +89,24 @@ class Root {
         });
     }
 
-    createCotonoma({cotoami_id, postId, name}) {
-        return {
-            id: 2,
-            coto_id: -1,
-            postId,
-            name: 'exmaple cotonoma',
-            key,
-            inserted_at: '2017-02-01 12:58:59',
-            updated_at: '2017-02-01 12:58:59',
-            cotos: [],
-        };
+    createCotonoma(args) {
+        const body = {
+            cotonoma: args,
+        }
+        return fetch(restUrl('cotonomas'), {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' },
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(response.statusText);
+            }
+        })
+        .then(data => {
+            return { ...data, cotos: [] };
+        });
     }
 
     signin(email, save_anonymous) {
