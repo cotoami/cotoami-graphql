@@ -33,14 +33,13 @@ class Root {
     }
 
     amishi({email}) {
-        return {
-            id: 1,
-            email,
-            display_name: 'bar',
-            avatar_url: 'http://example.com/foo.png',
-            inserted_at: '2017-02-01 12:58:59',
-            updated_at: '2017-02-01 12:58:59',
-        }
+        return fetch(restUrl(`amishis/email/${email}`)).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(response.statusText);
+            }
+        });
     }
 
     session() {

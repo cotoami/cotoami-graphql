@@ -40,3 +40,19 @@ describe('Get a cotonoma and cotos of it', () => {
         });
     });
 });
+
+describe('Get an amishi', () => {
+    it('respond with json', () => {
+        const query = `query {
+            amishi(email: "test@example.com") {
+              id
+            }
+        }`;
+        return graphql(schema, query, new Root()).then((result) => {
+            expect(result).not.to.have.key('errors');
+            expect(result.data).to.have.property('amishi');
+            expect(result.data.amishi).not.to.be(null);
+            expect(result.data.amishi).to.have.property('id');
+        });
+    });
+});
