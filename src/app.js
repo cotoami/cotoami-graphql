@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import graphqlHTTP from 'express-graphql';
 import schema from './schema';
 import Root from './adaptors/root';
-import stub_api from './lib/stub_api';
+import stubApi from './lib/stub_api';
 import accessLog from './lib/access_log';
 
 const app = express();
@@ -20,7 +20,7 @@ app.use('/graphql', graphqlHTTP({
 }));
 
 if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
-    app.use('/stub/api', stub_api);
+    app.use('/stub/api', stubApi);
 }
 
 export default app;
