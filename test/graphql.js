@@ -18,6 +18,25 @@ describe('Get cotos', () => {
             expect(result.data.cotos[0]).to.have.property('id');
         });
     });
+
+    it('responds cotos and cotonomas recursively', () => {
+        const query = `query {
+            cotos {
+                posted_in {
+                    cotos {
+                        id
+                    }
+                }
+            }
+        }`;
+        return graphql(schema, query, new Root()).then((result) => {
+            expect(result).not.to.have.key('errors');
+            expect(result.data).to.have.property('cotos');
+            expect(result.data.cotos[0]).to.have.property('posted_in');
+            expect(result.data.cotos[0].posted_in).to.have.property('cotos');
+            expect(result.data.cotos[0].posted_in.cotos[0]).to.have.property('id');
+        });
+    });
 });
 
 describe('Get a cotonoma and cotos of it', () => {

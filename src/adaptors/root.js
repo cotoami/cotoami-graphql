@@ -7,6 +7,50 @@ function restUrl(path) {
     return url.resolve(REST_URL_BASE, path);
 }
 
+class Coto {
+    constructor(props) {
+        this.id = props.id;
+        this.postId = props.postId;
+        this.cotonoma_key = props.cotonoma_key;
+        this.as_cotonoma = props.as_cotonoma;
+        this.content = props.content;
+        this.inserted_at = props.inserted_at;
+        this.updated_at = props.updated_at;
+        this._posted_in = props.posted_in;
+    }
+
+    posted_in() {
+        if (!this._posted_in) {
+            return null;
+        }
+
+        return new Cotonoma(this._posted_in);
+    }
+}
+
+class Cotonoma {
+    constructor(props) {
+        this.id = props.id;
+        this.coto_id = props.coto_id;
+        this.postId = props.postId;
+        this.key = props.key;
+        this.name = props.name;
+        this.inserted_at = props.inserted_at;
+        this.updated_at = props.updated_at;
+    }
+
+    cotos() {
+        return fetch(restUrl(`cotonomas/${this.key}/cotos`)).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(response.statusText);
+            }
+        })
+        .then(({ cotos }) => cotos.map(coto => new Coto(coto)));
+    }
+}
+
 class Root {
     cotos() {
         return fetch(restUrl('cotos')).then(response => {
@@ -15,7 +59,8 @@ class Root {
             } else {
                 throw new Error(response.statusText);
             }
-        });
+        })
+        .then(cotos => cotos.map(coto => new Coto(coto)));
     }
 
     cotonoma({key}) {
@@ -26,9 +71,9 @@ class Root {
                 throw new Error(response.statusText);
             }
         })
-        .then(data => {
-            const { cotonoma, cotos } = data;
-            return { ...cotonoma, cotos };
+        .then((data) => {
+            const { cotonoma } = data;
+            return new Cotonoma(cotonoma);
         });
     }
 
@@ -70,7 +115,8 @@ class Root {
             } else {
                 throw new Error(response.statusText);
             }
-        });
+        })
+        .then(props => new Coto(props));
     }
 
     // It might be better to return a coto object
@@ -104,9 +150,7 @@ class Root {
                 throw new Error(response.statusText);
             }
         })
-        .then(data => {
-            return { ...data, cotos: [] };
-        });
+        .then(props => new Cotonoma(props));
     }
 
     signin({email, save_anonymous}) {

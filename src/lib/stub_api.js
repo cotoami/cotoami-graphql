@@ -65,7 +65,14 @@ router.post('/cotos', (req, res) => {
     res.json({
         postId,
         updated_at: '2017-02-26 06:35:37',
-        posted_in: null,
+        posted_in: {
+            updated_at: '2017-02-01 12:19:01',
+            name: '間3',
+            key: 'esll1ureuculekv3',
+            inserted_at: '2017-02-01 12:19:01',
+            id: 38,
+            coto_id: -1,
+        },
         inserted_at: '2017-02-26 06:35:37',
         id: 560,
         cotonoma_key: '',
