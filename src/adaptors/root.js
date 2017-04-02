@@ -53,16 +53,24 @@ class Root {
     }
 
     createCoto({cotonoma_id, postId, content}) {
-        return {
-            id: 1,
-            postId,
-            as_cotonoma: true,
-            cotonoma_key: 'abcdefg',
-            content,
-            inserted_at: '2017-02-01 12:58:59',
-            updated_at: '2017-02-01 12:58:59',
-            posted_in: null,
-        };
+        const body = {
+            coto: {
+                cotonoma_id,
+                postId,
+                content,
+            },
+        }
+        return fetch(restUrl('cotos'), {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' },
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(response.statusText);
+            }
+        });
     }
 
     deleteCoto({id}) {

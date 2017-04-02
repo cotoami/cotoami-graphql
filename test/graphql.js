@@ -72,3 +72,23 @@ describe('Get a session', () => {
         });
     });
 });
+
+describe('Create a coto', () => {
+    it('respond with json', () => {
+        const query = `mutation {
+            createCoto(cotonoma_id: 1, postId: 1, content: "test") {
+                id
+                postId
+                content
+            }
+        }`;
+        return graphql(schema, query, new Root()).then((result) => {
+            expect(result).not.to.have.key('errors');
+            expect(result.data).to.have.property('createCoto');
+            expect(result.data.createCoto).not.to.be(null);
+            expect(result.data.createCoto).to.have.property('id');
+            expect(result.data.createCoto).to.have.property('postId', 1);
+            expect(result.data.createCoto).to.have.property('content', 'test');
+        });
+    });
+});
