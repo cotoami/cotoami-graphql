@@ -73,16 +73,20 @@ class Root {
         });
     }
 
+    // It might be better to return a coto object
+    // but now it can't. Because the RESTful API does
+    // not have an api that retrieve a coto specified by
+    // an ID.
     deleteCoto({id}) {
-        return {
-            id,
-            as_cotonoma: true,
-            cotonoma_key: 'abcdefg',
-            content: 'example cotonoma',
-            inserted_at: '2017-02-01 12:58:59',
-            updated_at: '2017-02-01 12:58:59',
-            posted_in: null,
-        };
+        return fetch(restUrl(`cotos/${id}`), {
+            method: 'DELETE',
+        }).then(response => {
+            if (response.ok) {
+                return true;
+            } else {
+                throw new Error(response.statusText);
+            }
+        });
     }
 
     createCotonoma({cotoami_id, postId, name}) {

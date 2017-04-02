@@ -92,3 +92,16 @@ describe('Create a coto', () => {
         });
     });
 });
+
+describe('Delete a coto', () => {
+    it('respond with succeeded', () => {
+        const query = `mutation {
+            deleteCoto(id: 1)
+        }`;
+        return graphql(schema, query, new Root()).then((result) => {
+            expect(result).not.to.have.key('errors');
+            expect(result.data).to.have.property('deleteCoto');
+            expect(result.data.deleteCoto).to.be(true);
+        });
+    });
+});

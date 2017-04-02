@@ -38,7 +38,7 @@ type Query {
 
 type Mutation {
     createCoto(cotonoma_id: Int, postId: Int!, content: String!): Coto!
-    deleteCoto(id: Int!): Coto
+    deleteCoto(id: Int!): Boolean
     createCotonoma(cotonoma_id: Int, postId: Int!, name: String!): Cotonoma!
     signin(email: String!, save_anonymous: Boolean!): String!
 }
