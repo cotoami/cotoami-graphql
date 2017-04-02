@@ -43,14 +43,13 @@ class Root {
     }
 
     session() {
-        return {
-            id: 1,
-            email: 'foo@example.com',
-            display_name: 'bar',
-            avatar_url: 'http://example.com/foo.png',
-            inserted_at: '2017-02-01 12:58:59',
-            updated_at: '2017-02-01 12:58:59',
-        }
+        return fetch(restUrl('session')).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(response.statusText);
+            }
+        });
     }
 
     createCoto({cotonoma_id, postId, content}) {

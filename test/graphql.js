@@ -56,3 +56,19 @@ describe('Get an amishi', () => {
         });
     });
 });
+
+describe('Get a session', () => {
+    it('respond with json', () => {
+        const query = `query {
+            session {
+                id
+            }
+        }`;
+        return graphql(schema, query, new Root()).then((result) => {
+            expect(result).not.to.have.key('errors');
+            expect(result.data).to.have.property('session');
+            expect(result.data.session).not.to.be(null);
+            expect(result.data.session).to.have.property('id');
+        });
+    });
+});
