@@ -109,8 +109,14 @@ class Root {
         });
     }
 
-    signin(email, save_anonymous) {
-        return 'ok';
+    signin({email, save_anonymous}) {
+        return fetch(restUrl(`signin/request/${email}/${save_anonymous}`)).then(response => {
+            if (response.ok) {
+                return response.text();
+            } else {
+                throw new Error(response.statusText);
+            }
+        });
     }
 };
 

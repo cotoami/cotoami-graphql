@@ -100,8 +100,7 @@ describe('Delete a coto', () => {
         }`;
         return graphql(schema, query, new Root()).then((result) => {
             expect(result).not.to.have.key('errors');
-            expect(result.data).to.have.property('deleteCoto');
-            expect(result.data.deleteCoto).to.be(true);
+            expect(result.data).to.have.property('deleteCoto', true);
         });
     });
 });
@@ -118,6 +117,18 @@ describe('Create a cotonoma', () => {
             expect(result.data).to.have.property('createCotonoma');
             expect(result.data.createCotonoma).not.to.be(null);
             expect(result.data.createCotonoma).to.have.property('id');
+        });
+    });
+});
+
+describe('signin', () => {
+    it('respond with succeeded', () => {
+        const query = `mutation {
+            signin(email: "test@example.com", save_anonymous: true)
+        }`;
+        return graphql(schema, query, new Root()).then((result) => {
+            expect(result).not.to.have.key('errors');
+            expect(result.data).to.have.property('signin', 'ok');
         });
     });
 });
