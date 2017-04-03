@@ -1,10 +1,8 @@
 import url from 'url';
 import fetch from 'node-fetch';
 
-const REST_URL_BASE = 'http://localhost:3000/stub/api/';
-
 function restUrl(path) {
-    return url.resolve(REST_URL_BASE, path);
+    return url.resolve(process.env.COTOAMI_REST_API_URL_BASE || 'http://localhost:3000/stub/api/', path);
 }
 
 class Root {
