@@ -1,53 +1,7 @@
-import url from 'url';
 import fetch from 'node-fetch';
-
-function restUrl(path) {
-    return url.resolve(process.env.COTOAMI_REST_API_URL_BASE || 'http://localhost:3000/stub/api/', path);
-}
-
-class Coto {
-    constructor(props) {
-        this.id = props.id;
-        this.postId = props.postId;
-        this.cotonoma_key = props.cotonoma_key;
-        this.as_cotonoma = props.as_cotonoma;
-        this.content = props.content;
-        this.inserted_at = props.inserted_at;
-        this.updated_at = props.updated_at;
-        this._posted_in = props.posted_in;
-    }
-
-    posted_in() {
-        if (!this._posted_in) {
-            return null;
-        }
-
-        return new Cotonoma(this._posted_in);
-    }
-}
-
-class Cotonoma {
-    constructor(props) {
-        this.id = props.id;
-        this.coto_id = props.coto_id;
-        this.postId = props.postId;
-        this.key = props.key;
-        this.name = props.name;
-        this.inserted_at = props.inserted_at;
-        this.updated_at = props.updated_at;
-    }
-
-    cotos() {
-        return fetch(restUrl(`cotonomas/${this.key}/cotos`)).then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error(response.statusText);
-            }
-        })
-        .then(({ cotos }) => cotos.map(coto => new Coto(coto)));
-    }
-}
+import restUrl from './rest_url';
+import Coto from './coto';
+import Cotonoma from './cotonoma';
 
 class Root {
     cotos() {
