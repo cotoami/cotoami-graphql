@@ -29,6 +29,10 @@ type Amishi {
     updated_at: String!
 }
 
+input CotonomaMember {
+    email: String!
+}
+
 type Query {
     cotos: [Coto!]!
     cotonoma(key: String!): Cotonoma
@@ -38,8 +42,8 @@ type Query {
 
 type Mutation {
     createCoto(cotonoma_id: Int, postId: Int!, content: String!): Coto!
-    deleteCoto(id: Int!): Coto
-    createCotonoma(cotonoma_id: Int, postId: Int!, name: String!): Cotonoma!
+    deleteCoto(id: Int!): Boolean
+    createCotonoma(cotonoma_id: Int, postId: Int!, name: String!, members: [CotonomaMember!]!): Cotonoma!
     signin(email: String!, save_anonymous: Boolean!): String!
 }
 

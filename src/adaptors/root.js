@@ -7,108 +7,160 @@ function restUrl(path) {
     return url.resolve(REST_URL_BASE, path);
 }
 
+class Coto {
+    constructor(props) {
+        this.id = props.id;
+        this.postId = props.postId;
+        this.cotonoma_key = props.cotonoma_key;
+        this.as_cotonoma = props.as_cotonoma;
+        this.content = props.content;
+        this.inserted_at = props.inserted_at;
+        this.updated_at = props.updated_at;
+        this._posted_in = props.posted_in;
+    }
+
+    posted_in() {
+        if (!this._posted_in) {
+            return null;
+        }
+
+        return new Cotonoma(this._posted_in);
+    }
+}
+
+class Cotonoma {
+    constructor(props) {
+        this.id = props.id;
+        this.coto_id = props.coto_id;
+        this.postId = props.postId;
+        this.key = props.key;
+        this.name = props.name;
+        this.inserted_at = props.inserted_at;
+        this.updated_at = props.updated_at;
+    }
+
+    cotos() {
+        return fetch(restUrl(`cotonomas/${this.key}/cotos`)).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(response.statusText);
+            }
+        })
+        .then(({ cotos }) => cotos.map(coto => new Coto(coto)));
+    }
+}
+
 class Root {
     cotos() {
         return fetch(restUrl('cotos')).then(response => {
             if (response.ok) {
                 return response.json();
             } else {
-                return new Error(response.statusText);
+                throw new Error(response.statusText);
+            }
+        })
+        .then(cotos => cotos.map(coto => new Coto(coto)));
+    }
+
+    cotonoma({key}) {
+        return fetch(restUrl(`cotonomas/${key}/cotos`)).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(response.statusText);
+            }
+        })
+        .then((data) => {
+            const { cotonoma } = data;
+            return new Cotonoma(cotonoma);
+        });
+    }
+
+    amishi({email}) {
+        return fetch(restUrl(`amishis/email/${email}`)).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(response.statusText);
             }
         });
     }
 
-    cotonoma({key}) {
-        return {
-            id: 2,
-            coto_id: 255,
-            name: 'exmaple cotonoma',
-            key,
-            inserted_at: '2017-02-01 12:58:59',
-            updated_at: '2017-02-01 12:58:59',
-            cotos: [
-                {
-                    id: 1,
-                    as_cotonoma: false,
-                    cotonoma_key: 'abcdefg',
-                    content: 'sample coto 1',
-                    inserted_at: '2017-02-01 12:58:59',
-                    updated_at: '2017-02-01 12:58:59',
-                    posted_in: {
-                        id: 2,
-                        coto_id: -1,
-                        name: 'exmaple cotonoma',
-                        key,
-                        inserted_at: '2017-02-01 12:58:59',
-                        updated_at: '2017-02-01 12:58:59',
-                    },
-                },
-            ],
-        };
-    }
-
-    amishi({email}) {
-        return {
-            id: 1,
-            email,
-            display_name: 'bar',
-            avatar_url: 'http://example.com/foo.png',
-            inserted_at: '2017-02-01 12:58:59',
-            updated_at: '2017-02-01 12:58:59',
-        }
-    }
-
     session() {
-        return {
-            id: 1,
-            email: 'foo@example.com',
-            display_name: 'bar',
-            avatar_url: 'http://example.com/foo.png',
-            inserted_at: '2017-02-01 12:58:59',
-            updated_at: '2017-02-01 12:58:59',
-        }
+        return fetch(restUrl('session')).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(response.statusText);
+            }
+        });
     }
 
     createCoto({cotonoma_id, postId, content}) {
-        return {
-            id: 1,
-            postId,
-            as_cotonoma: true,
-            cotonoma_key: 'abcdefg',
-            content,
-            inserted_at: '2017-02-01 12:58:59',
-            updated_at: '2017-02-01 12:58:59',
-            posted_in: null,
-        };
+        const body = {
+            coto: {
+                cotonoma_id,
+                postId,
+                content,
+            },
+        }
+        return fetch(restUrl('cotos'), {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' },
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(response.statusText);
+            }
+        })
+        .then(props => new Coto(props));
     }
 
+    // It might be better to return a coto object
+    // but now it can't. Because the RESTful API does
+    // not have an api that retrieve a coto specified by
+    // an ID.
     deleteCoto({id}) {
-        return {
-            id,
-            as_cotonoma: true,
-            cotonoma_key: 'abcdefg',
-            content: 'example cotonoma',
-            inserted_at: '2017-02-01 12:58:59',
-            updated_at: '2017-02-01 12:58:59',
-            posted_in: null,
-        };
+        return fetch(restUrl(`cotos/${id}`), {
+            method: 'DELETE',
+        }).then(response => {
+            if (response.ok) {
+                return true;
+            } else {
+                throw new Error(response.statusText);
+            }
+        });
     }
 
-    createCotonoma({cotoami_id, postId, name}) {
-        return {
-            id: 2,
-            coto_id: -1,
-            postId,
-            name: 'exmaple cotonoma',
-            key,
-            inserted_at: '2017-02-01 12:58:59',
-            updated_at: '2017-02-01 12:58:59',
-            cotos: [],
-        };
+    createCotonoma(args) {
+        const body = {
+            cotonoma: args,
+        }
+        return fetch(restUrl('cotonomas'), {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: { 'Content-Type': 'application/json' },
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error(response.statusText);
+            }
+        })
+        .then(props => new Cotonoma(props));
     }
 
-    signin(email, save_anonymous) {
-        return 'ok';
+    signin({email, save_anonymous}) {
+        return fetch(restUrl(`signin/request/${email}/${save_anonymous}`)).then(response => {
+            if (response.ok) {
+                return response.text();
+            } else {
+                throw new Error(response.statusText);
+            }
+        });
     }
 };
 
