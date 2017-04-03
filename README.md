@@ -10,6 +10,7 @@ Experimental GraphQL API
 
 * App
   * COTOAMI_GRAPHQL_PORT - http listening port
+  * COTOAMI_REST_API_URL_BASE - restful api url base
 
 ## How to run app locally
 
