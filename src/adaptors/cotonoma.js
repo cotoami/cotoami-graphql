@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import restUrl from './rest_url';
+import { getJson } from './rest';
 import Coto from './coto';
 
 export default class Cotonoma {
@@ -13,14 +13,8 @@ export default class Cotonoma {
         this.updated_at = props.updated_at;
     }
 
-    cotos() {
-        return fetch(restUrl(`cotonomas/${this.key}/cotos`)).then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error(response.statusText);
-            }
-        })
-        .then(({ cotos }) => cotos.map(coto => new Coto(coto)));
+    cotos(args, context) {
+        return getJson(context, `cotonomas/${this.key}/cotos`)
+            .then(({ cotos }) => cotos.map(coto => new Coto(coto)));
     }
 }
