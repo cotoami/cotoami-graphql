@@ -13,13 +13,19 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 app.use(bodyParser.json());
-app.use('/graphql', graphqlHTTP({
+app.use('/graphql', graphqlHTTP((req, res) => ({
     schema,
     rootValue: new Root(),
+    context: { req, res },
     graphiql: true,
-}));
+})));
 
 if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+    app.use((req, res, next) => {
+        res.cookie('foo1', 'bar1');
+        res.cookie('foo2', 'bar2');
+        next();
+    });
     app.use('/stub/api', stubApi);
 }
 

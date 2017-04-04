@@ -1,7 +1,19 @@
 import expect from 'expect.js';
-import { graphql } from 'graphql';
-import schema from '../src/schema';
-import Root from '../src/adaptors/root';
+import fetch from 'node-fetch';
+
+function postQuery(query, variables) {
+    return fetch('http://localhost:3000/graphql', {
+        method: 'POST',
+        body: JSON.stringify({ query, variables }),
+        headers: { 'Content-Type': 'application/json' },
+    }).then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error(response.statusText);
+        }
+    });
+}
 
 describe('Get cotos', () => {
     it('respond with json', () => {
@@ -10,7 +22,7 @@ describe('Get cotos', () => {
               id
             }
         }`;
-        return graphql(schema, query, new Root()).then((result) => {
+        return postQuery(query).then((result) => {
             expect(result).not.to.have.key('errors');
             expect(result.data).to.have.property('cotos');
             expect(result.data.cotos).to.be.an('array');
@@ -29,7 +41,7 @@ describe('Get cotos', () => {
                 }
             }
         }`;
-        return graphql(schema, query, new Root()).then((result) => {
+        return postQuery(query).then((result) => {
             expect(result).not.to.have.key('errors');
             expect(result.data).to.have.property('cotos');
             expect(result.data.cotos[0]).to.have.property('posted_in');
@@ -49,7 +61,7 @@ describe('Get a cotonoma and cotos of it', () => {
               }
             }
         }`;
-        return graphql(schema, query, new Root()).then((result) => {
+        return postQuery(query).then((result) => {
             expect(result).not.to.have.key('errors');
             expect(result.data).to.have.property('cotonoma');
             expect(result.data.cotonoma).not.to.be(null);
@@ -67,7 +79,7 @@ describe('Get an amishi', () => {
               id
             }
         }`;
-        return graphql(schema, query, new Root()).then((result) => {
+        return postQuery(query).then((result) => {
             expect(result).not.to.have.key('errors');
             expect(result.data).to.have.property('amishi');
             expect(result.data.amishi).not.to.be(null);
@@ -83,7 +95,7 @@ describe('Get a session', () => {
                 id
             }
         }`;
-        return graphql(schema, query, new Root()).then((result) => {
+        return postQuery(query).then((result) => {
             expect(result).not.to.have.key('errors');
             expect(result.data).to.have.property('session');
             expect(result.data.session).not.to.be(null);
@@ -101,7 +113,7 @@ describe('Create a coto', () => {
                 content
             }
         }`;
-        return graphql(schema, query, new Root()).then((result) => {
+        return postQuery(query).then((result) => {
             expect(result).not.to.have.key('errors');
             expect(result.data).to.have.property('createCoto');
             expect(result.data.createCoto).not.to.be(null);
@@ -117,7 +129,7 @@ describe('Delete a coto', () => {
         const query = `mutation {
             deleteCoto(id: 1)
         }`;
-        return graphql(schema, query, new Root()).then((result) => {
+        return postQuery(query).then((result) => {
             expect(result).not.to.have.key('errors');
             expect(result.data).to.have.property('deleteCoto', true);
         });
@@ -131,7 +143,7 @@ describe('Create a cotonoma', () => {
                 id
             }
         }`;
-        return graphql(schema, query, new Root()).then((result) => {
+        return postQuery(query).then((result) => {
             expect(result).not.to.have.key('errors');
             expect(result.data).to.have.property('createCotonoma');
             expect(result.data.createCotonoma).not.to.be(null);
@@ -145,7 +157,7 @@ describe('signin', () => {
         const query = `mutation {
             signin(email: "test@example.com", save_anonymous: true)
         }`;
-        return graphql(schema, query, new Root()).then((result) => {
+        return postQuery(query).then((result) => {
             expect(result).not.to.have.key('errors');
             expect(result.data).to.have.property('signin', 'ok');
         });
