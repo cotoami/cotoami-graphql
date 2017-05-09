@@ -7,6 +7,7 @@ export default class Coto {
         this.cotonoma_key = props.cotonoma_key;
         this.as_cotonoma = props.as_cotonoma;
         this.content = props.content;
+        this.amishi = props.amishi;
         this.inserted_at = props.inserted_at;
         this.updated_at = props.updated_at;
         this._posted_in = props.posted_in;

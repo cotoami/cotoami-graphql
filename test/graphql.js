@@ -31,6 +31,24 @@ describe('Get cotos', () => {
         });
     });
 
+    it('can contain amishi', () => {
+        const query = `query {
+            cotos {
+                amishi {
+                    id
+                }
+            }
+        }`;
+        return postQuery(query).then((result) => {
+            expect(result).not.to.have.key('errors');
+            expect(result.data).to.have.property('cotos');
+            expect(result.data.cotos).to.be.an('array');
+            expect(result.data.cotos).to.not.be.empty();
+            expect(result.data.cotos[0]).to.have.property('amishi');
+            expect(result.data.cotos[0].amishi).to.have.property('id');
+        });
+    });
+
     it('responds cotos and cotonomas recursively', () => {
         const query = `query {
             cotos {
