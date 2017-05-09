@@ -16,6 +16,12 @@ class Root {
             });
     }
 
+    cotonomas({ cotonoma_id }, context) {
+        const path = cotonoma_id ? `cotonomas?cotonoma_id=${cotonoma_id}` : 'cotonomas';
+        return getJson(context, path)
+            .then(cotonomas => cotonomas.map(cotonoma => new Cotonoma(cotonoma)));
+    }
+
     amishi({ email }, context) {
         return getJson(context, `amishis/email/${email}`);
     }

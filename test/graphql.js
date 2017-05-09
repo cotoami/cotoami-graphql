@@ -51,6 +51,39 @@ describe('Get cotos', () => {
     });
 });
 
+describe('Get cotonomas', () => {
+    it('respond with json', () => {
+        const query = `query {
+            cotonomas {
+              id
+            }
+        }`;
+        return postQuery(query).then((result) => {
+            expect(result).not.to.have.key('errors');
+            expect(result.data).to.have.property('cotonomas');
+            expect(result.data.cotonomas).to.be.an('array');
+            expect(result.data.cotonomas).to.not.be.empty();
+            expect(result.data.cotonomas[0]).to.have.property('id');
+        });
+    });
+});
+
+describe('Get a cotonoma with cotonoma_id', () => {
+    it('respond with single element array', () => {
+        const query = `query {
+            cotonomas(cotonoma_id: 28) {
+              id
+            }
+        }`;
+        return postQuery(query).then((result) => {
+            expect(result).not.to.have.key('errors');
+            expect(result.data).to.have.property('cotonomas');
+            expect(result.data.cotonomas).to.be.an('array');
+            expect(result.data.cotonomas).to.have.length(1);
+        });
+    });
+});
+
 describe('Get a cotonoma and cotos of it', () => {
     it('respond with json', () => {
         const query = `query {
