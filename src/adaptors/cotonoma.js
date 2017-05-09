@@ -18,4 +18,9 @@ export default class Cotonoma {
         return getJson(context, `cotonomas/${this.key}/cotos`)
             .then(({ cotos }) => cotos.map(coto => new Coto(coto)));
     }
+
+    members(args, context) {
+        return getJson(context, `cotonomas/${this.key}/cotos`)
+            .then(({ members }) => members);
+    }
 }

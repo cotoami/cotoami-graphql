@@ -142,6 +142,26 @@ describe('Get cotonoma\'s owner', () => {
     });
 });
 
+describe('Get cotonoma\'s members', () => {
+    it('respond with json', () => {
+        const query = `query {
+            cotonoma(key: "abcde") {
+              members {
+                id
+              }
+            }
+        }`;
+        return postQuery(query).then((result) => {
+            expect(result).not.to.have.key('errors');
+            expect(result.data).to.have.property('cotonoma');
+            expect(result.data.cotonoma).not.to.be(null);
+            expect(result.data.cotonoma).to.have.property('members');
+            expect(result.data.cotonoma.members).not.to.be.empty();
+            expect(result.data.cotonoma.members[0]).to.have.property('id');
+        });
+    });
+});
+
 describe('Get an amishi', () => {
     it('respond with json', () => {
         const query = `query {
