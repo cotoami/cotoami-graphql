@@ -9,6 +9,8 @@ router.get('/session', (req, res) => {
         email: 'info@tai2.net',
         display_name: 'tai2',
         avatar_url: 'https://secure.gravatar.com/avatar/b7f799d31a76215358b8364a2654c245',
+        websocket_url: 'wss://cotoa.me/socket/websocket',
+        token: 'SFMyNTY.g3QAAAACZAAEZGF0YWEHZAAGc2lnbmVkbgYARq_x5lsB.63O1BnELg7SDx32j1vw25meKzEjKowJhuwFRz27rbBM',
     });
 });
 
@@ -40,6 +42,14 @@ router.get('/cotos', (req, res) => {
             cotonoma_key: 'mnmdm93100om4v9j',
             content: 'aaaaa',
             as_cotonoma: true,
+            amishi: {
+                avatar_url: '',
+                display_name: '',
+                email: 'info@tai2.net',
+                id: 7,
+                inserted_at: '2017-02-01 12:58:59',
+                updated_at: '2017-02-01 12:58:59',
+            },
         },
         {
             updated_at: '2017-02-01 12:58:59',
@@ -56,6 +66,14 @@ router.get('/cotos', (req, res) => {
             cotonoma_key: 'qcqshmvikch68tkh',
             content: 'テスト',
             as_cotonoma: true,
+            amishi: {
+                avatar_url: '',
+                display_name: '',
+                email: 'info@tai2.net',
+                id: 7,
+                inserted_at: '2017-02-01 12:58:59',
+                updated_at: '2017-02-01 12:58:59',
+            },
         },
     ]);
 });
@@ -78,6 +96,7 @@ router.post('/cotos', (req, res) => {
         cotonoma_key: '',
         content,
         as_cotonoma: false,
+        amishi: null,
     });
 });
 
@@ -92,8 +111,16 @@ router.get('/cotonomas', (req, res) => {
             name:"間",
             key:"mt9u3qlda0r9joif",
             inserted_at:"2017-01-31 11:09:48",
-            id:28,
-            coto_id:253
+            id: 28,
+            coto_id: 253,
+            owner: {
+                avatar_url: 'https://secure.gravatar.com/avatar/b7f799d31a76215358b8364a2654c245',
+                display_name: 'tai2',
+                email: 'info@tai2.net',
+                id: 7,
+                inserted_at:"2017-01-31 11:09:48",
+                updated_at:"2017-01-31 11:09:48",
+            },
         },
         {
             updated_at: '2017-01-31 12:05:52',
@@ -102,6 +129,14 @@ router.get('/cotonomas', (req, res) => {
             inserted_at: '2017-01-31 12:05:52',
             id: 29,
             coto_id: 255,
+            owner: {
+                avatar_url: 'https://secure.gravatar.com/avatar/b7f799d31a76215358b8364a2654c245',
+                display_name: 'tai2',
+                email: 'info@tai2.net',
+                id: 7,
+                inserted_at:"2017-01-31 11:09:48",
+                updated_at:"2017-01-31 11:09:48",
+            },
         },
     ]);
 });
@@ -116,7 +151,15 @@ router.post('/cotonomas', (req, res) => {
         id: 567,
         cotonoma_key: 'tp2re1drdj106s8d',
         content: name,
-        as_cotonoma: true
+        as_cotonoma: true,
+        amishi: {
+            avatar_url: 'https://secure.gravatar.com/avatar/b7f799d31a76215358b8364a2654c245',
+            display_name: 'tai2',
+            email: 'info@tai2.net',
+            id: 7,
+            inserted_at:"2017-01-31 11:09:48",
+            updated_at:"2017-01-31 11:09:48",
+        },
     });
 });
 
@@ -138,7 +181,15 @@ router.get('/cotonomas/:key/cotos', (req, res) => {
                 id: 279,
                 cotonoma_key: 'qcqshmvikch68tkh',
                 content: 'テスト',
-                as_cotonoma: true
+                as_cotonoma: true,
+                amishi: {
+                    avatar_url: 'https://secure.gravatar.com/avatar/b7f799d31a76215358b8364a2654c245',
+                    display_name: 'tai2',
+                    email: 'info@tai2.net',
+                    id: 7,
+                    inserted_at:"2017-01-31 11:09:48",
+                    updated_at:"2017-01-31 11:09:48",
+                },
             },
             {
                 updated_at: '2017-02-01 12:19:12',
@@ -155,6 +206,14 @@ router.get('/cotonomas/:key/cotos', (req, res) => {
                 cotonoma_key: '',
                 content: '投稿',
                 as_cotonoma: false,
+                amishi: {
+                    avatar_url: 'https://secure.gravatar.com/avatar/b7f799d31a76215358b8364a2654c245',
+                    display_name: 'tai2',
+                    email: 'info@tai2.net',
+                    id: 7,
+                    inserted_at:"2017-01-31 11:09:48",
+                    updated_at:"2017-01-31 11:09:48",
+                },
             }
         ],
         cotonoma: {
@@ -164,7 +223,25 @@ router.get('/cotonomas/:key/cotos', (req, res) => {
             inserted_at: '2017-02-01 12:19:01',
             id: 38,
             coto_id: 277,
+            owner: {
+                avatar_url: 'https://secure.gravatar.com/avatar/b7f799d31a76215358b8364a2654c245',
+                display_name: 'tai2',
+                email: 'info@tai2.net',
+                id: 7,
+                inserted_at:"2017-01-31 11:09:48",
+                updated_at:"2017-01-31 11:09:48",
+            },
         },
+        members: [
+            {
+                avatar_url: 'https://secure.gravatar.com/avatar/b7f799d31a76215358b8364a2654c245',
+                display_name: 'tai2',
+                email: 'info@tai2.net',
+                id: 7,
+                inserted_at:"2017-01-31 11:09:48",
+                updated_at:"2017-01-31 11:09:48",
+            }
+        ],
     });
 });
 
