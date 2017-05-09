@@ -9,6 +9,7 @@ export default class Cotonoma {
         this.postId = props.postId;
         this.key = props.key;
         this.name = props.name;
+        this.owner = props.owner;
         this.inserted_at = props.inserted_at;
         this.updated_at = props.updated_at;
     }

@@ -123,6 +123,25 @@ describe('Get a cotonoma and cotos of it', () => {
     });
 });
 
+describe('Get cotonoma\'s owner', () => {
+    it('respond with json', () => {
+        const query = `query {
+            cotonoma(key: "abcde") {
+              owner {
+                id
+              }
+            }
+        }`;
+        return postQuery(query).then((result) => {
+            expect(result).not.to.have.key('errors');
+            expect(result.data).to.have.property('cotonoma');
+            expect(result.data.cotonoma).not.to.be(null);
+            expect(result.data.cotonoma).to.have.property('owner');
+            expect(result.data.cotonoma.owner).to.have.property('id');
+        });
+    });
+});
+
 describe('Get an amishi', () => {
     it('respond with json', () => {
         const query = `query {
