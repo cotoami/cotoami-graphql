@@ -101,6 +101,7 @@ router.post('/cotos', (req, res) => {
 });
 
 router.delete('/cotos/:id', (req, res) => {
+    res.type('text');
     res.end();
 });
 
