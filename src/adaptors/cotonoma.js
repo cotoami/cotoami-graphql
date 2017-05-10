@@ -9,6 +9,7 @@ export default class Cotonoma {
         this.postId = props.postId;
         this.key = props.key;
         this.name = props.name;
+        this.owner = props.owner;
         this.inserted_at = props.inserted_at;
         this.updated_at = props.updated_at;
     }
@@ -16,5 +17,10 @@ export default class Cotonoma {
     cotos(args, context) {
         return getJson(context, `cotonomas/${this.key}/cotos`)
             .then(({ cotos }) => cotos.map(coto => new Coto(coto)));
+    }
+
+    members(args, context) {
+        return getJson(context, `cotonomas/${this.key}/cotos`)
+            .then(({ members }) => members);
     }
 }
