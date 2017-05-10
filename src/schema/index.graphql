@@ -7,6 +7,7 @@ type Coto {
     inserted_at: String!
     updated_at: String!
     posted_in: Cotonoma
+    amishi: Amishi!
 }
 
 type Cotonoma {
@@ -18,6 +19,8 @@ type Cotonoma {
     inserted_at: String!
     updated_at: String!
     cotos: [Coto!]!
+    owner: Amishi!
+    members: [Amishi!]!
 }
 
 type Amishi {
@@ -29,6 +32,17 @@ type Amishi {
     updated_at: String!
 }
 
+type Session {
+    id: Int!
+    email: String!
+    display_name: String!
+    avatar_url: String!
+    inserted_at: String!
+    updated_at: String!
+    websocket_url: String!
+    token: String!
+}
+
 input CotonomaMember {
     email: String!
 }
@@ -36,8 +50,9 @@ input CotonomaMember {
 type Query {
     cotos: [Coto!]!
     cotonoma(key: String!): Cotonoma
+    cotonomas(cotonoma_id: Int): [Cotonoma!]!
     amishi(email: String!): Amishi
-    session: Amishi
+    session: Session
 }
 
 type Mutation {
